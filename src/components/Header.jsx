@@ -1,17 +1,5 @@
-import { AppBar, Toolbar, Typography, InputBase } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
-
-const Search = styled('div')(({ theme }) => ({
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: { marginLeft: theme.spacing(1), width: 'auto' },
-}));
-
-const SearchInput = styled(InputBase)(({ theme }) => ({
-  paddingLeft: theme.spacing(2),
-  color: 'inherit',
-}));
+import { AppBar, Toolbar, Typography, InputBase, Box } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 
 export default function Header({ onSearch }) {
   return (
@@ -20,14 +8,31 @@ export default function Header({ onSearch }) {
         <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
           StreamLite
         </Typography>
-        <Search>
-          <SearchInput
+
+        {/* Search Box */}
+        <Box
+          sx={{
+            backgroundColor: (theme) => alpha(theme.palette.common.white, 0.15),
+            '&:hover': {
+              backgroundColor: (theme) => alpha(theme.palette.common.white, 0.25),
+            },
+            borderRadius: 1,
+            ml: { xs: 0, sm: 1 },
+            width: { xs: '100%', sm: 'auto' },
+          }}
+        >
+          <InputBase
             placeholder="Search…"
             onKeyDown={(e) => {
               if (e.key === 'Enter') onSearch(e.target.value);
             }}
+            sx={{
+              color: 'inherit',
+              paddingLeft: 2,
+              width: '100%',
+            }}
           />
-        </Search>
+        </Box>
       </Toolbar>
     </AppBar>
   );
